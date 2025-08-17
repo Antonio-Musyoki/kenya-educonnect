@@ -19,20 +19,20 @@ export const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">
-              How it Works
-            </a>
-            <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">
-              Features
-            </a>
-            <a href="#tutors" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/tutors" className="text-muted-foreground hover:text-foreground transition-colors">
               Find Tutors
             </a>
-            <a href="#courses" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/courses" className="text-muted-foreground hover:text-foreground transition-colors">
               Courses
             </a>
-            <a href="#jobs" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/jobs" className="text-muted-foreground hover:text-foreground transition-colors">
               Teaching Jobs
+            </a>
+            <a href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
+              About
+            </a>
+            <a href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
+              Contact
             </a>
           </div>
 
