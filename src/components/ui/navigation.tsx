@@ -1,21 +1,30 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Menu, X } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./dropdown-menu";
 
 export const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    setIsMenuOpen(false);
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-dark rounded-lg flex items-center justify-center">
-              <BookOpen className="h-5 w-5 text-primary-foreground" />
+          <Link to="/" className="flex items-center space-x-2">
+            <div className="bg-primary rounded-lg p-2">
+              <span className="text-primary-foreground font-bold text-sm">THK</span>
             </div>
-            <span className="text-xl font-bold text-foreground">Teachers Hub Kenya</span>
-          </div>
+            <span className="font-bold text-lg hidden sm:block">Teachers Hub Kenya</span>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
@@ -36,10 +45,35 @@ export const Navigation = () => {
             </a>
           </div>
 
-          {/* Desktop CTA Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost">Sign In</Button>
-            <Button variant="hero">Get Started</Button>
+          {/* Auth Buttons */}
+          <div className="hidden md:flex items-center space-x-2">
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem asChild>
+                    <Link to="/dashboard">Dashboard</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Button variant="ghost" asChild>
+                  <Link to="/auth">Sign In</Link>
+                </Button>
+                <Button asChild>
+                  <Link to="/auth">Get Started</Link>
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
